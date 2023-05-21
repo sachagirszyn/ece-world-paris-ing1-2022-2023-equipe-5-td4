@@ -1,7 +1,7 @@
 //
 // Created by 33778 on 21/05/2023.
 //
-#include <allegro.h>
+/*#include <allegro.h>
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -220,5 +220,5 @@ void finDeJeu(char nomJoueur[2][20], int joueurGagnant, BITMAP *bitmapGagnant)
     clear(screen);
     stretch_sprite(screen, bitmapGagnant, 0, 0, SCREEN_W, SCREEN_H);
     textprintf_centre_ex(screen, font, SCREEN_W / 2, SCREEN_H / 2, makecol(255, 255, 255), -1, "%s a gagné!", nomJoueur[joueurGagnant]);
-}
+}*/
 

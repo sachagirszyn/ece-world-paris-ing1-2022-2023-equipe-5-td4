@@ -33,56 +33,54 @@ void AssignerVitesse(struct Personnage *Personnages[5]){
     }
 }
 
-void demandeParier(int* nbTickets, int* numChevaux, BITMAP* ImageTemporaire, struct Personnage *Personnages[5]) {
+int RecupererEntier(){
+    int Resultats;
+    clear_keybuf();
+    while (1) {
+        int key=readkey();
+        key=key>>8;
+        if(key==KEY_ENTER){
+            break;
+        }
+        if (key==KEY_0) {
+            Resultats = 0;
+        }
+        else if (key==KEY_1) {
+            Resultats = 1;
+        }
+        else if (key==KEY_2) {
+            Resultats = 2;
+        }
+        else if (key==KEY_3) {
+            Resultats = 3;
+        }
+        else if (key==KEY_4) {
+            Resultats = 4;
+        }
+        else if (key==KEY_5) {
+            Resultats = 5;
+        }
+    }clear_keybuf();
+    return Resultats;
+}
 
+void demandeParier(int* nbTickets, int* numChevaux) {
 
-    clear_to_color(ImageTemporaire, makecol(255, 255, 255));
-    textout_centre_ex(ImageTemporaire, font, "Combien de tickets souhaitez-vous parier ?", SCREEN_W / 2, SCREEN_H / 2 - 20, makecol(0, 0, 0), -1);
-    textout_centre_ex(ImageTemporaire, font, "Appuyez sur Entrée pour valider.", SCREEN_W / 2, SCREEN_H / 2 + 20, makecol(0, 0, 0), -1);
+    clear_to_color(screen, makecol(255, 255, 255));
+    textout_centre_ex(screen, font, "Combien de tickets souhaitez-vous parier ?", 800 / 2, 600 / 2 - 20, makecol(0, 0, 0), -1);
+    textout_centre_ex(screen, font, "Appuyez sur Entrée pour valider.", 800 / 2, 600 / 2 + 20, makecol(0, 0, 0), -1);
 
-    while (!key[KEY_ENTER]) {
-        poll_keyboard();
+    *nbTickets=RecupererEntier();
 
-        if (key[KEY_0]) {
-            *nbTickets = 0;
-        }
-        else if (key[KEY_1]) {
-            *nbTickets = 1;
-        }
-        else if (key[KEY_2]) {
-            *nbTickets = 2;
-        }
-        else if (key[KEY_3]) {
-            *nbTickets = 3;
-        }
-        else if (key[KEY_4]) {
-            *nbTickets = 4;
-        }
-        else if (key[KEY_5]) {
-            *nbTickets = 5;
-        }
+    clear_to_color(screen, makecol(255, 255, 255));
+    textprintf_centre_ex(screen, font, 800 / 2, 600 / 2 - 20, makecol(0, 0, 0), -1, "Vous avez choisi de parier sur %d ticket(s).", *nbTickets);
+    textprintf_centre_ex(screen, font, 800 / 2, 600 / 2 + 20, makecol(0, 0, 0), -1, "Sur quelle vaisseau décidez-vous de parier %d tickets ? ", *nbTickets);
 
-        if (key[KEY_6]) {
-            *numChevaux = 1;
-        }
-        else if (key[KEY_7]) {
-            *numChevaux = 2;
-        }
-        else if (key[KEY_8]) {
-            *numChevaux = 3;
-        }
-        else if (key[KEY_9]) {
-            *numChevaux = 4;
-        }
-        else if (key[KEY_0]) {
-            *numChevaux = 5;
-        }
+    *numChevaux=RecupererEntier();
 
-        rest(10);
-    }
-
-    clear_to_color(ImageTemporaire, makecol(255, 255, 255));
-    textprintf_centre_ex(ImageTemporaire, font, SCREEN_W / 2, SCREEN_H / 2, makecol(0, 0, 0), -1, "Vous avez choisi de parier sur %d ticket(s) et le cheval numéro %d.", *nbTickets, *numChevaux);
+    rest(2000);
+    clear_to_color(screen, makecol(255, 255, 255));
+    textprintf_centre_ex(screen, font, 800 / 2, 600 / 2, makecol(0, 0, 0), -1, "Vous avez choisi de parier sur %d ticket(s) et le cheval numéro %d.", *nbTickets, *numChevaux);
     rest(2000);
 }
 
@@ -103,7 +101,7 @@ void JeuxCourseVaisseau(){
     struct Personnage *Personnages[5] = {&Personnage1, &Personnage2, &Personnage3, &Personnage4, &Personnage5,};
 
     CreerMatriceJeu(tab);
-    //demandeParier(&nbTickets,&numChevaux,ImageTemporaire,Personnages);
+    demandeParier(&nbTickets,&numChevaux);
     AfficherBackgroundJeu(ImageTemporaire, tab);
 
 
@@ -147,32 +145,44 @@ void JeuxCourseVaisseau(){
     Personnage5.DirectionActuelle = DROITE;
     AfficherPersonnage(Personnage5, ImageTemporaire);
 
+    ImageGagnant=load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Gagner.bmp",NULL);
+    ImagePerdant= load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Defaite.bmp",NULL);
 
     AssignerVitesse(Personnages);
+    int IndexGagnant=-1;
     while (1){
         rest(100);
         if (DeplacementVaisseau(&Personnage1,tab,ImageTemporaire)){
             blit(ImageTemporaire, screen,0, 0, 0, 0, 800, 600);
+            IndexGagnant=1;
             break;
 
         }if (DeplacementVaisseau(&Personnage2,tab,ImageTemporaire)){
             blit(ImageTemporaire, screen,0, 0, 0, 0, 800, 600);
-
+            IndexGagnant=2;
             break;
         }if (DeplacementVaisseau(&Personnage3,tab,ImageTemporaire)){
             blit(ImageTemporaire, screen,0, 0, 0, 0, 800, 600);
-
+            IndexGagnant=3;
             break;
         }if (DeplacementVaisseau(&Personnage4,tab,ImageTemporaire)){
             blit(ImageTemporaire, screen,0, 0, 0, 0, 800, 600);
-
+            IndexGagnant=4;
             break;
         }if (DeplacementVaisseau(&Personnage5,tab,ImageTemporaire)){
             blit(ImageTemporaire, screen,0, 0, 0, 0, 800, 600);
-
+            IndexGagnant=5;
             break;
         }
         blit(ImageTemporaire, screen,0, 0, 0, 0, 800, 600);
+    }if (IndexGagnant==numChevaux){
+
+        AfficherImage(ImageGagnant);
+        rest(2000);
+    }else{
+
+        AfficherImage(ImagePerdant);
+        rest(2000);
     }
 
 }

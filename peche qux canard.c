@@ -2,7 +2,7 @@
 // Created by leona on 21/05/2023.
 //
 
-#include "peche qux canard.h"
+/*#include "peche qux canard.h"
 #include <stdio.h>
 #include <allegro.h>
 #include <time.h>
@@ -106,5 +106,5 @@ int main() {int mouseX, mouseY;
     allegro_exit();
     return 0;
 
-}
+}*/
 

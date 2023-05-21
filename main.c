@@ -3,6 +3,7 @@
 #include "personnage.h"
 #include <stdio.h>
 #include "CourseVaisseaux.h"
+#include "peche qux canard.c"
 
 
 
@@ -11,8 +12,9 @@ void VerificationJeux(BITMAP* ImageTemporaire, int tab[5][10],struct Personnage 
         JeuxCourseVaisseau();
         BougerPersonnage(0, 1,Personnage,ImageTemporaire,tab);
         AfficherImage(ImageTemporaire);
+        printf("%d %d\n",Personnage->x,Personnage->y);
     }else if(tab[Personnage->x][Personnage->y]==MAISON2){
-
+        //JeuCanard();
         BougerPersonnage(0, 1,Personnage,ImageTemporaire,tab);
         AfficherImage(ImageTemporaire);
     }else if(tab[Personnage->x][Personnage->y]==MAISON3){
@@ -64,10 +66,10 @@ int main(){
     Personnage1.DirectionActuelle=DROITE;
     InsererPersonnage(Personnage1,screen);
 
-
     while (!key[KEY_ESC]){
         rest(75);
         if(key[KEY_LEFT]){
+
             Personnage1.DirectionActuelle=GAUCHE;
             BougerPersonnage(0, -1,&Personnage1,ImageTemporaire,tab);
 
@@ -90,6 +92,7 @@ int main(){
         }
         //NombreDeTickets(tab, ImageTemporaire, 5,Personnage1);
         VerificationJeux(ImageTemporaire,tab,&Personnage1);
+        printf("%d %d\n",Personnage1.x,Personnage1.y);
     }
     return 0;
 } END_OF_MAIN();

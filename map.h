@@ -39,7 +39,9 @@ BITMAP *ImageDepart2;
 BITMAP *ImageDepart3;
 BITMAP *ImageDepart4;
 BITMAP *ImageDepart5;
-BITMAP *ImageFin;
+BITMAP *ImageFinDeCourse;
+BITMAP* ImageGagnant;
+BITMAP* ImagePerdant;
 
 void AfficherImage(BITMAP* Image);
 void RemplirMatrice(int tab[5][10]);
