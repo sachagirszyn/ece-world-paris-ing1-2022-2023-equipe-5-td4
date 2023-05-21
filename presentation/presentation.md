@@ -490,13 +490,6 @@ Que vous jugez pertinent (image ou Mermaid.js)
 
 ---
 
-<!--
-_class: lead
--->
-
-# Les slides suivantes ne seront pas présentées oralement lors de la soutenance mais doivent figurer dans la présentation. Nous les survolerons rapidement.
-
----
 
 # Répartition des taches du projet
 
@@ -539,6 +532,13 @@ _class: lead
 
 ---
 
+<!--
+_class: lead
+-->
+
+# Les slides suivantes ne seront pas présentées oralement lors de la soutenance mais doivent figurer dans la présentation. Nous les survolerons rapidement.
+
+---
 # Récapitulatif des jeux
 
 | Jeu | Avancement | Problèmes / reste |
