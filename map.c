@@ -195,7 +195,7 @@ void AfficherBackgroundJeu(BITMAP* ImageTemporaire,int tab[5][10]) {
     ImageDepart3 = load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Depart3.bmp", NULL);
     ImageDepart4 = load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Depart4.bmp", NULL);
     ImageDepart5 = load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Depart5.bmp", NULL);
-    ImageFin = load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Fin.bmp", NULL);
+    ImageFin = load_bitmap("C:\\Users\\girsz\\CLionProjects\\Allegro2\\Texture\\Fin2.bmp", NULL);
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 10; j++) {
             AfficherLeTerrain(i, j, tab, ImageTemporaire);
