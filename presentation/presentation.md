@@ -40,8 +40,8 @@ Equipe 5
 1- ECE WORLD
 2- Carte
 3- Course de vaisseaux
-4- Jackpot
-5- Jeu de la taupe
+4- Jeu de la taupe
+5- Jackpot
 6- Tire aux ballons
 7- Pêche aux canards
 
@@ -65,8 +65,10 @@ J'ai réussi à faire la map, c'est-à-dire l'écran d'accueil, l'affichage et l
 
 **DTI de la carte:**
 
-* Données: Matrice Tableau de 5lignes par 1à colonnes, screen de 800 par 600, la BITMAP des planètes, la BITMAP du vaisseau, la BITMAP du trou noir
+* Données: Matrice Tableau de 5 lignes par 10 colonnes, screen de 800 par 600, la BITMAP des planètes, la BITMAP du vaisseau, la BITMAP du trou noir
+
 * Traitements: Affichage du vaisseau et des planètes, Déplacement du vaisseau et porte de sortie du parc d'attractions
+
 * Interfaces: Affichage sur l'écran et accessibilité au jeu selon la position du vaisseau, Déplacement du vaisseau par les flèches du clavier
 
 
@@ -94,9 +96,9 @@ ACD:
 Chaque jeu correspond à une planète sur la carte.
 
 
-Chaque jeu à son propre dossier avec son main.
+Chaque jeu a son propre dossier avec son main().
 
-Les jeux prennent souvent en paramètre les structures associées et  les bitmaps à afficher
+Les jeux prennent souvent en paramètre les structures associées et les bitmaps à afficher.
 
 
 
@@ -135,7 +137,6 @@ L'interface lui demande de parier sur un vaisseau :
 
 **Fonctionnement 3/5**
 
-Le personnage rentre dans la planète. 
 
 L'interface lui rappel son pari :
 * le nombre de tickets misés
@@ -163,7 +164,7 @@ La course est lancée !
 
 
 
-Selon le vaisseau qui gagne la course, l'interface annonce au joueur si il a gagné ou perdu.
+Selon le vaisseau qui gagne la course, l'interface annonce au joueur si il a gagné ou perdu son pari.
 
 ---
 
@@ -199,16 +200,16 @@ classDiagram
 
 ### Tableaux
 
-J'ai utilisé un tableau pour diviser la carte en zones
+J'ai utilisé un tableau pour diviser la carte en 50 zones
 - int tab[5][10]
 
 ### Fonctions
 
 
-CreerMatriceJeu()->demandeParier(); 
-AfficherBackgroundJeu()->DeplacementVaisseau()
-AfficherPersonnage()->AssignerVitesse
-DeplacementVaisseaux()->AfficherImage()
+CreerMatriceJeu() -> AfficherBackgroundJeu() 
+demandeParier() -> DeplacementVaisseau()
+AfficherPersonnage() -> AssignerVitesse
+DeplacementVaisseaux() -> AfficherImage()
 
 ---
 
@@ -293,12 +294,12 @@ Le jeu se termine soit lorsqu'un joueur atteint un score de 25, soit lorsque l'u
 
 ---
 
-# Logigramme
+# Jeu de la Taupe
+
+## Logigramme
 
 ![bg right:60% 50%](images/logigrammetaupe.png)
 
-
----
 
 ---
 
@@ -326,7 +327,9 @@ Il gelait si le programme était lancé (j'ai des preuves si nécéssaire). Donc
 
 ---
 
-# Logigramme
+# Jeu du JackPot
+
+## Logigramme
 
 ![bg right:60% 100%](images/logigrammeJackPot.png)
 
@@ -334,11 +337,93 @@ Il gelait si le programme était lancé (j'ai des preuves si nécéssaire). Donc
 ---
 
 
+![bg right:40%](images/TirBallon.jpg)
+
+# Tir aux ballons
 
 
+* Les ballons se deplace tous a la meme vitesse 
+* Les ballons se déplace aléatoirement sur l’écran
+* La collision entre les ballons est activé
+* Le curseur de la souris sert de carabine 
+* Quand les ballons éclatés , le score des joueurs s’actualise
 
 
 ---
+![bg right:20%](images/TirBallon.jpg)
+
+# Tir aux ballons
+
+## Structures et Fonctions
+
+1.	Deux structures sont définies : Balloon pour représenter un ballon avec sa position (x et y) et son
+état actif (active), et Player pour représenter le joueur avec sa position (x et y).
+
+2.	La fonction initializeGame() est utilisée pour initialiser les positions des ballons et du joueur. 
+Elle génère des positions aléatoires pour les ballons à l'intérieur des dimensions de la fenêtre, et 
+place le joueur au milieu en bas de la fenêtre.
+
+---
+![bg left:20%](images/TirBallon.jpg)
+
+# Tir aux ballons
+
+## Fonctions
+
+3.	La fonction drawGame() est utilisée pour afficher les éléments du jeu à l'écran. Elle efface l'écran, puis parcourt les ballons actifs et les affiche à leurs positions respectives à l'aide de la fonction SetConsoleCursorPosition() de la bibliothèque windows.h. Ensuite, elle affiche le joueur à sa position actuelle.
+
+4.	La fonction checkCollision(int x, int y) est utilisée pour vérifier s'il y a une collision entre les coordonnées (x, y) données et un ballon actif. Elle parcourt tous les ballons actifs et vérifie si l'un d'entre eux a les mêmes coordonnées que celles fournies. Si c'est le cas, le ballon est marqué comme inactif et la fonction retourne true.
+
+---
+![bg right:20%](images/TirBallon.jpg)
+
+# Tir aux ballons
+
+## Fonctions
+
+5.	La fonction main() est le point d’entrée du programme . Elle commence par iniialiser le générateur de nombre aléatoires , puis appelle initializeGame() pour initialiser le jeu et drawGame pour afficher le premier état du jeu à l’écran
+
+6.	Le jeu commence avec une boucle while qui continue tant que le joueur n'a pas détruit tous les ballons (points est inférieur à MAX_BALLOONS). À chaque itération de la boucle, le programme vérifie si une touche est pressée en utilisant kbhit() et récupère la touche pressée avec getch().
+
+---
+
+![bg left:20%](images/TirBallon.jpg)
+
+# Tir aux ballons
+
+## Commandes et fin de jeu
+
+7.	Si la touche pressée est la barre d'espace (code ASCII 32), le programme vérifie s'il y a une collision entre la position du joueur et un ballon actif en appelant checkCollision(). Si une collision est détectée, le ballon est marqué comme inactif et le nombre de points est incrémenté.
+
+8.	Une fois que tous les ballons ont été détruits, le programme affiche un message de victoire avec le nombre de points obtenus.
+
+
+---
+
+![bg right:20%](images/TirBallon.jpg)
+
+# Tir aux ballons
+
+## Reussite
+
+Le code compile
+
+## Echec
+
+La génération des ballons marche 
+les collisions ne marche pas
+
+---
+
+# Tir aux ballons
+
+## Logigramme
+
+![bg right:60% 75%](images/LogigrammeBallons.png)
+
+
+---
+
 
 ![bg right:40%](images/peche_canards.jpg)
 
@@ -447,7 +532,7 @@ _class: lead
 | Membre | Répartition | Tâches réalisées | 
 | --- | --- | --- |
 | Sacha | 32% | Carte + Jeu + Coordination |
-| Leonard | 17 | Jeu |
+| Leonard | 17 % | Jeu |
 | Zeyna | 17% | Jeu |
 | Julien | 17% | Jeu |
 | Thomas | 17% | Jeu |
@@ -463,49 +548,3 @@ _class: lead
 | Jackpot | 60% | Problème de code |
 | Jeu de la taupe | 80% | Problème de code |
 | Tir aux ballons | 70% | Problème d'affichage |
-
----
-
-<!--
-_class: lead
--->
-# Quelques éléments que vous pouvez utiliser à votre guise dans votre présentation
-
----
-
-# Schémas et Graphes
-
-Vous pouvez utiliser [Mermaid.js](https://mermaid.js.org/) pour générer des schémas. Regardez la documentation.
-
----
-
-# Slide avec du code
-
-
-```C
-for(int i = 0; i < 5; i++) {
-    printf("%d ", i);
-}
-```
-
-> 0 1 2 3 4 
-
-
----
-
-# Emojis
-
-https://gist.github.com/rxaviers/7360908
-
----
-
-# Thème 
-
-Vous pouvez personnaliser l'affichage de votre présentation avec le langage CSS en modifiant le fichier `theme.css`.
-
----
-
-# Export PDF
-
-Depuis récemment, l'export (**`Export Slide Deck...`**) en PDF oublie parfois des éléments. 
-Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), puis de l'exporter en PDF depuis PowerPoint.
