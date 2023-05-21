@@ -3,4 +3,5 @@ project(PROJET C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(PROJET main.c fonction.c source.h)
+add_executable(PROJET main.c map.c personnage.h map.h CourseVaisseaux.c)
+target_link_libraries(PROJET -lmingw32 -lalleg44)
